@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **`RunningDrawdown`.** Since-inception maximum drawdown over an unbounded stream, in
+  O(1) memory, with no parameters and no warmup. `update` returns the maximum
+  drawdown since the first value (same fraction convention as `MaxDrawdown`);
+  `max_drawdown()`, `current_drawdown()` and `peak()` read the running state.
+  Rust core only for now (#487).
+
 ## [2.0.0] - 2026-10-06
 
 Formula audit. Every one of the 514 indicators was checked against its published
