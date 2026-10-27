@@ -69,7 +69,7 @@ Full documentation lives at **[docs.wickra.org](https://docs.wickra.org)**:
   [Java](https://docs.wickra.org/Quickstart-Java),
   [R](https://docs.wickra.org/Quickstart-R).
 - **Indicators** — a per-indicator deep dive (formula, parameters, warmup) for
-  every one of the 514 indicators; start at the
+  every one of the 515 indicators; start at the
   [indicators overview](https://docs.wickra.org/Indicators-Overview).
 - **Reference** — [warmup periods](https://docs.wickra.org/Warmup-Periods),
   [streaming vs batch](https://docs.wickra.org/Streaming-vs-Batch),
@@ -87,7 +87,7 @@ an afterthought — **live, tick-by-tick data** — without giving up the breadt
 a full batch library, and without making you reimplement your indicators four
 times to get there.
 
-- **The biggest streaming-native catalogue, period.** 514 indicators across 24
+- **The biggest streaming-native catalogue, period.** 515 indicators across 24
   families — candlesticks, harmonic & chart patterns, market profile, market
   breadth, Renko/Kagi/Point&Figure bars, Ehlers DSP cycles, risk/performance
   metrics — **every single one updating incrementally**, with no pass over the
@@ -99,13 +99,13 @@ times to get there.
 - **Correct by construction, not by hope.** Every `update` validates its input,
   runs a real warmup, and returns an `Option` so a single bad tick can't silently
   poison state. `batch == streaming` is **bit-exact, fuzzed and 100 %-line-covered
-  for all 514 indicators**.
-- **Identical across every language — proven, not promised.** All 514 indicators
+  for all 515 indicators**.
+- **Identical across every language — proven, not promised.** All 515 indicators
   are replayed through **all 10 languages** (Rust · Python · Node.js · WASM · C ·
   C++ · C# · Go · Java · R) and checked **against the Rust reference** via shared
   golden fixtures in CI. The math is verifiably the same everywhere — this very
   check caught and fixed two real cross-language marshalling bugs. (Every binding
-  calls into the same Rust core, so 461 of the 514 are bit-identical by
+  calls into the same Rust core, so 462 of the 515 are bit-identical by
   construction; the other 53 call a libm transcendental, whose last bit belongs
   to the platform's math library rather than to Wickra, so the runners compare to
   a relative tolerance. See [Verification](#verification).)
@@ -133,7 +133,7 @@ Every other library forces one of those compromises. Wickra doesn't:
 
 | Library          | Install     | Streaming   | Languages                   | Indicators | Active |
 |------------------|-------------|-------------|-----------------------------|-----------:|--------|
-| **★&nbsp;Wickra**| **clean**   | **yes, all 514** | **Rust · Python · Node.js · WASM · C · C++ · C# · Go · Java · R** | **514** | **yes** |
+| **★&nbsp;Wickra**| **clean**   | **yes, all 515** | **Rust · Python · Node.js · WASM · C · C++ · C# · Go · Java · R** | **515** | **yes** |
 | kand             | clean       | yes         | Python · WASM · Rust        |       ~60  | yes    |
 | ta-rs            | clean       | yes         | Rust only                   |       ~30  | stale  |
 | yata             | clean       | partial     | Rust only                   |       ~35  | yes    |
@@ -208,7 +208,7 @@ the per-indicator breakdown are in [BENCHMARKS.md](BENCHMARKS.md#3-per-binding-t
 
 ## Indicators
 
-514 streaming-first indicators across twenty-four families. Every one passes the
+515 streaming-first indicators across twenty-four families. Every one passes the
 `batch == streaming` equivalence test, reference-value tests, and reset
 semantics tests — and is replayed through **all 10 languages** and checked
 against the Rust reference (golden fixtures, in CI). Each has a
@@ -239,7 +239,7 @@ per-indicator deep dive (formula, parameters, warmup) at
 | Derivatives          | Funding Rate, Funding Rate Mean, Funding Rate Z-Score, Funding Basis, Open-Interest Delta, OI / Price Divergence, OI-Weighted Price, Long/Short Ratio, Taker Buy/Sell Ratio, Liquidation Features, Term-Structure Basis, Calendar Spread, Estimated Leverage Ratio, OI-to-Volume Ratio, Perpetual Premium Index, Funding-Implied APR, Open-Interest Momentum |
 | Market Profile       | Value Area (POC / VAH / VAL), Volume Profile (histogram), TPO Profile, Initial Balance, Opening Range, Naked POC, Single Prints, Profile Shape, High/Low Volume Nodes, Composite Profile |
 | Market Breadth       | Advance/Decline Line, Advance/Decline Ratio, Advance/Decline Volume Line, McClellan Oscillator, McClellan Summation Index, TRIN / Arms Index, Breadth Thrust, New Highs - New Lows, High-Low Index, Percent Above Moving Average, Up/Down Volume Ratio, Bullish Percent Index, Cumulative Volume Index, Absolute Breadth Index, TICK Index |
-| Risk / Performance   | Sharpe Ratio, Sortino Ratio, Calmar Ratio, Omega Ratio, Max Drawdown, Average Drawdown, Drawdown Duration, Pain Index, Value at Risk, Conditional Value at Risk (CVaR), Profit Factor, Gain/Loss Ratio, Recovery Factor, Kelly Criterion, Treynor Ratio, Information Ratio, Alpha (Jensen) |
+| Risk / Performance   | Sharpe Ratio, Sortino Ratio, Calmar Ratio, Omega Ratio, Max Drawdown, Average Drawdown, Drawdown Duration, Pain Index, Value at Risk, Conditional Value at Risk (CVaR), Profit Factor, Gain/Loss Ratio, Recovery Factor, Kelly Criterion, Treynor Ratio, Information Ratio, Alpha (Jensen), Running Drawdown |
 | Seasonality & Session | Session VWAP, Session High/Low, Session Range, Average Daily Range, Overnight Gap, Overnight/Intraday Return, Turn-of-Month, Seasonal Z-Score, Time-of-Day Return Profile, Day-of-Week Profile, Intraday Volatility Profile, Volume-by-Time Profile |
 
 Every candlestick pattern emits a signed per-bar value — `+1.0` bullish,
@@ -362,7 +362,7 @@ under `examples/python/` (and the matching directory for every other language).
 ```
 wickra/
 ├── crates/
-│   ├── wickra-core/         core engine + all 514 indicators
+│   ├── wickra-core/         core engine + all 515 indicators
 │   ├── wickra/              top-level facade crate (publishes on crates.io) + benches/
 │   ├── wickra-data/         CSV reader, tick aggregator, live exchange feeds
 │   └── wickra-bench/        internal cross-library benchmark harness (not published)
@@ -469,7 +469,7 @@ On top of those per-binding tests, **all 10 languages** (Rust, Python, Node.js,
 WASM, C, C++, C#, Go, Java, R) replay a shared, language-neutral golden fixture
 (`testdata/golden/*.csv`, generated by
 `cargo run -p wickra-examples --bin gen_golden`) and assert **parity with the
-Rust reference for every one of the 514 indicators** across every
+Rust reference for every one of the 515 indicators** across every
 archetype (scalar, multi-output, pairwise, derivatives-tick, cross-section,
 order-book, trade, profile, alt-chart bars, footprint). This catches FFI wiring
 bugs the math-only core tests cannot see — it has already found and fixed real
@@ -478,7 +478,7 @@ cross-language marshalling bugs in the Java and R bindings.
 > **What "parity" means here, precisely.** Every binding calls into the same Rust
 > core, so the arithmetic is not reimplemented anywhere and the results are
 > identical by construction — with one exception worth stating rather than
-> glossing over. 53 of the 514 indicators call a transcendental from the
+> glossing over. 53 of the 515 indicators call a transcendental from the
 > platform's math library (`ln`, `sin`, `cos`, `atan`, `exp` and friends, either
 > directly or through an indicator they compose). No mainstream libm rounds those
 > correctly, and implementations differ in the last bit: measured on
@@ -486,7 +486,7 @@ cross-language marshalling bugs in the Java and R bindings.
 > the correctly rounded result on 24 of 67 bars, by one ulp. That last bit is a
 > property of the machine, not of Wickra, and it is why one golden fixture
 > stopped reproducing after a toolchain change. The golden runners therefore
-> compare to a relative tolerance rather than by bit equality. The remaining 461
+> compare to a relative tolerance rather than by bit equality. The remaining 462
 > indicators use only IEEE-754 arithmetic (`+ − × ÷ √`), which every conforming
 > platform rounds identically.
 
@@ -501,7 +501,7 @@ pattern powers a family of products built on it:
 - [**wickra-exchange**](https://github.com/wickra-lib/wickra-exchange) — unified market-data + execution across ten crypto exchanges
 - [**wickra-backtest**](https://github.com/wickra-lib/wickra-backtest) — event-driven backtester over the Wickra core
 - [**wickra-terminal**](https://github.com/wickra-lib/wickra-terminal) — the trading terminal: a TUI and a browser renderer over the stack
-- [**wickra-screener**](https://github.com/wickra-lib/wickra-screener) — parallel multi-symbol screening over 514 streaming indicators
+- [**wickra-screener**](https://github.com/wickra-lib/wickra-screener) — parallel multi-symbol screening over 495 streaming indicators
 - [**wickra-xray**](https://github.com/wickra-lib/wickra-xray) — market-microstructure explorer: footprint, order-book heatmap, liquidation map, funding/OI divergence
 - [**wickra-radar**](https://github.com/wickra-lib/wickra-radar) — perp-universe alert radar: OI delta, funding flip, book imbalance, liquidation clusters, OI/price divergence
 - [**wickra-copilot**](https://github.com/wickra-lib/wickra-copilot) — local market copilot grounded in real order-book, liquidation and funding microstructure
@@ -512,10 +512,10 @@ pattern powers a family of products built on it:
 - [**wickra-proof**](https://github.com/wickra-lib/wickra-proof) — Proof-of-Backtest: deterministic (spec, data) → report + blake3 hash, recomputable byte-for-byte in ten languages
 - [**wickra-zk**](https://github.com/wickra-lib/wickra-zk) — prove a backtest zero-knowledge — on-chain-verifiable performance without revealing the data or the strategy
 - [**wickra-impact**](https://github.com/wickra-lib/wickra-impact) — the backtester that knows you would have moved the market: agent-based fills on the real historical L2 order book
-- [**wickra-darwin**](https://github.com/wickra-lib/wickra-darwin) — evolutionary strategy search at millions of backtests per second, mutating and crossing JSON specs across the 514-indicator space
+- [**wickra-darwin**](https://github.com/wickra-lib/wickra-darwin) — evolutionary strategy search at millions of backtests per second, mutating and crossing JSON specs across the 495-indicator space
 - [**wickra-gym**](https://github.com/wickra-lib/wickra-gym) — a Gymnasium-compatible, microstructure-aware backtest environment with O(1) steps for deterministic RL rollouts
-- [**wickra-feature-store**](https://github.com/wickra-lib/wickra-feature-store) — OHLCV and microstructure streams into ML-ready feature matrices over 514 O(1) streaming indicators
-- [**wickra-genome**](https://github.com/wickra-lib/wickra-genome) — a vector database of the whole market: every asset a 514-dim live vector, for similarity search, clustering and anomaly detection
+- [**wickra-feature-store**](https://github.com/wickra-lib/wickra-feature-store) — OHLCV and microstructure streams into ML-ready feature matrices over 495 O(1) streaming indicators
+- [**wickra-genome**](https://github.com/wickra-lib/wickra-genome) — a vector database of the whole market: every asset a 495-dim live vector, for similarity search, clustering and anomaly detection
 - [**wickra-timemachine**](https://github.com/wickra-lib/wickra-timemachine) — scrub the whole market like a video — every symbol, full order book, rewound to any moment via deterministic re-fold
 - [**wickra-synth**](https://github.com/wickra-lib/wickra-synth) — deterministic synthetic market microstructure: OHLCV, order book, trades and funding from a single seed
 - [**wickra-compile**](https://github.com/wickra-lib/wickra-compile) — compile a strategy spec into a standalone deployable: a WASM module, a self-contained binary, or a `no_std` artifact

@@ -13,7 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   O(1) memory, with no parameters and no warmup. `update` returns the maximum
   drawdown since the first value (same fraction convention as `MaxDrawdown`);
   `max_drawdown()`, `current_drawdown()` and `peak()` read the running state.
-  Rust core only for now (#487).
+  Bound in all ten languages and golden-pinned like every other indicator;
+  Python also exposes the running state as the `max_drawdown`,
+  `current_drawdown` and `peak` properties (#487).
 
 ## [2.0.0] - 2026-10-06
 
