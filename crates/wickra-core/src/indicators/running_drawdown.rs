@@ -163,6 +163,17 @@ mod tests {
     }
 
     #[test]
+    fn default_matches_new() {
+        let mut a = RunningDrawdown::default();
+        let mut b = RunningDrawdown::new();
+        assert_eq!(a.warmup_period(), b.warmup_period());
+        assert_eq!(a.is_ready(), b.is_ready());
+        assert_eq!(a.peak(), b.peak());
+        assert_eq!(a.update(100.0), b.update(100.0));
+        assert_eq!(a.update(80.0), b.update(80.0));
+    }
+
+    #[test]
     fn first_value_emits_immediately() {
         let mut dd = RunningDrawdown::new();
         assert_eq!(dd.update(100.0), Some(0.0));
